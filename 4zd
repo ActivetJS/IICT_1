@@ -1,0 +1,55 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+long double accuracy = 1e-10;
+int x;
+double myexp(double x, double eps) {
+long double sum = 1.0, an = 1.0;
+int n=1;
+while (abs(an) > eps) {
+an = an * x / n;
+sum = sum + an;
+n++;
+}
+return (sum);
+}
+double mycos(double x,double eps) {
+double s,an;
+int n;
+n=0;
+an=1;
+s=0;
+while(fabs(an)>eps)
+{
+s+=an;
+n++;
+an*=-x*x/(2.*n-1.0)/(2.0*n);
+}
+return s;
+}
+double mysin(double x,double eps) {
+double s,an;
+int n;
+n=1;
+an=x;
+s=0;
+while(fabs(an)>eps)
+{
+s+=an;
+n++;
+an*=-x*x/(2.*n-1.0)/(2.0*n-2.0);
+}
+return s;
+}
+int main() {
+cout « "Print x: ";
+cin » x;
+cout « "my exp = " « myexp(x, accuracy) « endl;
+cout « "exp std = " « exp(x) « endl;
+cout « "my cos = " « mycos(x, accuracy) « endl;
+cout « "cos std = " « cos(x) « endl;
+cout « "my sin = " « mysin(x, accuracy) « endl;
+cout « "sin std = " « sin(x) « endl;
+return 0;
+}
